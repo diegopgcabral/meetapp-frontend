@@ -26,7 +26,7 @@ export default createGlobalStyle`
   body {
     -webkit-font-smoothing: antialiased;
     background: linear-gradient(180deg, #22202C, #402845);
-    color: #fff
+    color: #fff;
   }
 
   body, input, button {
@@ -63,7 +63,7 @@ export default createGlobalStyle`
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate()(-50%, -50%);
+      transform: translate(-50%, -50%);
       width: 0;
       border-radius: 50%;
       background-color: rgba(0,0,0,0.1);
