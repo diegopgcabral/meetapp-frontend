@@ -24,7 +24,7 @@ export default function SignIn() {
 
   return (
     <>
-      <img src={logo} alt="MeetApp" />
+      <img src={logo} alt="Meetup" />
 
       <Form schema={schema} onSubmit={handleSubmit}>
         <Input

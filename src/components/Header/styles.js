@@ -16,7 +16,43 @@ export const Content = styled.div`
 
   nav {
     display: flex;
+    align-items: center;
+    img {
+      max-height: 32px;
+    }
   }
 `;
 
-export const Profile = styled.div``;
+export const Profile = styled.div`
+  display: flex;
+  align-items: center;
+
+  div {
+    text-align: right;
+    margin-right: 2rem;
+
+    strong {
+      display: block;
+      font-size: 0.825rem;
+    }
+
+    a {
+      display: block;
+      margin-top: 0.125rem;
+      font-size: 0.825rem;
+      color: #999;
+      &:hover {
+        color: #d44059;
+      }
+    }
+  }
+  button {
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    font-weight: bold;
+    color: #fff;
+
+    position: relative;
+    overflow: hidden;
+  }
+`;
