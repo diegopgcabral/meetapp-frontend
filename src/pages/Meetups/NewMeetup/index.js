@@ -1,14 +1,14 @@
 import React from 'react';
 import * as Yup from 'yup';
-import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { Form, Input, Textarea } from '@rocketseat/unform';
-import { MdSave } from 'react-icons/md';
+import { MdAddCircleOutline } from 'react-icons/md';
 
 import DatePicker from '~/components/DatePicker';
 import BannerInput from '~/pages/Meetups/component/BannerInput';
 
 import api from '~/service/api';
+import history from '~/service/history';
 import { getError } from '~/util/errorHandler';
 
 import { Container, Button } from './styles';
@@ -17,7 +17,7 @@ const schema = Yup.object().shape({
   banner_id: Yup.number().required('O banner é obrigatório'),
   title: Yup.string().required('O título é obrigatório'),
   description: Yup.string()
-    .max(255, 'Descrição não pode ter mais de 255 caracteres')
+    .max(144, 'Descrição não pode ter mais de 144 caracteres')
     .required('A descrição é obrigatória'),
   date: Yup.date()
     .required('A data é obrigatória')
@@ -25,25 +25,16 @@ const schema = Yup.object().shape({
   location: Yup.string().required('O local é obrigatório'),
 });
 
-export default function NewMeetup({ history }) {
-  async function handleSubmit({
-    title,
-    description,
-    location,
-    date,
-    banner_id,
-  }) {
+export default function NewMeetup() {
+  async function handleSubmit(e) {
     try {
-      await api.post('meetups', {
-        title,
-        description,
-        location,
-        date,
-        banner_id,
-      });
+      const newMeetup = { ...e };
+      const response = await api.post('meetups', newMeetup);
+
+      const { id } = response.data;
 
       toast.success('Meetup cadastrado com sucesso!');
-      history.push('/');
+      history.push(`/meetup/details/${id}`);
     } catch (err) {
       toast.error(getError(err) || 'Erro ao salvar o meetup');
     }
@@ -53,6 +44,7 @@ export default function NewMeetup({ history }) {
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
         <BannerInput name="banner_id" />
+
         <Input
           name="title"
           type="text"
@@ -75,16 +67,10 @@ export default function NewMeetup({ history }) {
           placeholder="Localização"
         />
         <Button type="submit">
-          <MdSave size={20} />
+          <MdAddCircleOutline size={20} />
           Salvar Meetup
         </Button>
       </Form>
     </Container>
   );
 }
-
-NewMeetup.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};

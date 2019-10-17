@@ -51,9 +51,15 @@ export default createGlobalStyle`
     color: #fff;
     background-color: #f94d6a;
     border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    font-weight: bold;
+    font-size: 1rem;
     transition: background-color 0.5s ease-in-out;
     &:hover {
       background-color: ${darken(0.05, '#f94d6a')};
+    }
+    svg{
+      margin-right: 0.5rem;
     }
     position: relative;
     overflow: hidden;

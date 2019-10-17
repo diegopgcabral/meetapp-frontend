@@ -5,6 +5,8 @@ export const Container = styled.div`
   max-width: 90vw;
   margin: 2rem auto;
   form {
+    display: flex;
+    flex-direction: column;
     input[type='text'],
     textarea {
       width: 100%;
@@ -14,12 +16,26 @@ export const Container = styled.div`
       padding: 0.75rem 1.25rem;
       border-radius: 0.25rem;
       color: white;
+      border-left: 2px solid transparent;
+      transition: border 0.3s ease-in;
+      &:focus {
+        border-left: 2px solid #f94d6a;
+      }
     }
     textarea {
       height: 200px;
     }
     > div {
       width: 100%;
+    }
+    > span {
+      color: #f94d6a;
+      align-self: flex-start;
+      margin-top: -0.5rem;
+      margin-bottom: 0.75rem;
+      padding: 0.1rem 0.25rem;
+      border-radius: 0 0 0.25rem 0.25rem;
+      font-size: 0.75rem;
     }
   }
 `;
