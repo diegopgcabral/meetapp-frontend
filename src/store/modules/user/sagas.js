@@ -5,6 +5,8 @@ import api from '~/service/api';
 
 import { updateProfileFailure, updateProfileSuccess } from './actions';
 
+import { getError } from '~/util/errorHandler';
+
 export function* updateProfile({ payload }) {
   try {
     const { name, email, ...rest } = payload.data;
@@ -21,7 +23,9 @@ export function* updateProfile({ payload }) {
 
     yield put(updateProfileSuccess(response.data));
   } catch (err) {
-    toast.error('Erro ao atualizar o perfil, confira seus dados!');
+    toast.error(
+      getError(err) || 'Erro ao atualizar o perfil, confira seus dados!'
+    );
 
     yield put(updateProfileFailure());
   }

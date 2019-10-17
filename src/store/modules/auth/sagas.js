@@ -6,6 +6,8 @@ import api from '~/service/api';
 
 import { signInSuccess, signUpSuccess, signFailure } from './actions';
 
+import { getError } from '~/util/errorHandler';
+
 export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
@@ -22,7 +24,7 @@ export function* signIn({ payload }) {
 
     history.push('/dashboard');
   } catch (err) {
-    toast.error('Falha na autenticação. Verifique seus dados');
+    toast.error(getError(err) || 'Falha na autenticação. Verifique seus dados');
     yield put(signFailure());
   }
 }
@@ -42,7 +44,7 @@ export function* signUp({ payload }) {
     history.push('/');
     toast.success('Parabéns! Você está registrado!');
   } catch (err) {
-    toast.error('Falha no cadastro, verifique seus dados');
+    toast.error(getError(err) || 'Falha no cadastro, verifique seus dados');
 
     yield put(signFailure());
   }
@@ -54,7 +56,7 @@ export function setToken({ payload }) {
   const { token } = payload.auth;
 
   if (token) {
-    api.defaults.headers.Authorizarion = `Bearer ${token}`;
+    api.defaults.headers.Authorization = `Bearer ${token}`;
   }
 }
 

@@ -9,8 +9,8 @@ import { updateProfileRequest } from '~/store/modules/user/actions';
 import { Container, Button } from './styles';
 
 export default function Profile() {
-  const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
+  const dispatch = useDispatch();
 
   function handleSubmit(data) {
     dispatch(updateProfileRequest(data));

@@ -29,7 +29,7 @@ export default createGlobalStyle`
     color: #fff;
   }
 
-  body, input, button {
+  body, input, button, textarea {
     font: 16px 'Roboto', sans-serif;
   }
 
