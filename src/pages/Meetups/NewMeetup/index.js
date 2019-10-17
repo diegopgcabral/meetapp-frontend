@@ -14,7 +14,7 @@ import { getError } from '~/util/errorHandler';
 import { Container, Button } from './styles';
 
 const schema = Yup.object().shape({
-  banner: Yup.number().required('O banner é obrigatório'),
+  banner_id: Yup.number().required('O banner é obrigatório'),
   title: Yup.string().required('O título é obrigatório'),
   description: Yup.string()
     .max(255, 'Descrição não pode ter mais de 255 caracteres')
@@ -22,23 +22,22 @@ const schema = Yup.object().shape({
   date: Yup.date()
     .required('A data é obrigatória')
     .min(new Date(), 'Meetup só pode ser criado para data futura'),
-  local: Yup.string().required('O local é obrigatório'),
+  location: Yup.string().required('O local é obrigatório'),
 });
 
 export default function NewMeetup({ history }) {
   async function handleSubmit({
     title,
     description,
-    localization,
+    location,
     date,
     banner_id,
   }) {
     try {
-      console.tron.log('teste');
       await api.post('meetups', {
         title,
         description,
-        localization,
+        location,
         date,
         banner_id,
       });
@@ -49,6 +48,7 @@ export default function NewMeetup({ history }) {
       toast.error(getError(err) || 'Erro ao salvar o meetup');
     }
   }
+
   return (
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
@@ -64,7 +64,6 @@ export default function NewMeetup({ history }) {
           type="text"
           autoComplete="off"
           placeholder="Descrição completa"
-          multiline
         />
 
         <DatePicker name="date" />
