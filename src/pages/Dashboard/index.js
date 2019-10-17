@@ -7,8 +7,6 @@ import pt from 'date-fns/locale/pt';
 import { MdAddCircleOutline, MdChevronRight } from 'react-icons/md';
 
 import { format } from 'util';
-import api from '~/service/api';
-import { getError } from '~/util/errorHandler';
 
 import { Container, MeetupList, Meetup } from './styles';
 
@@ -16,29 +14,6 @@ const formatDate = d =>
   format(d, "dd MMMM yyyy' ,às ' H:mm aa", { locale: pt });
 
 export default function Dashboard({ history }) {
-  const [meetups, setMeetups] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    async function loadMeetups() {
-      setLoading(true);
-      try {
-        const response = await api.get('organizing');
-
-        const data = response.data.map(meetup => ({
-          ...meetup,
-          formattedDate: formatDate(parseISO(meetup.date)),
-        }));
-
-        setMeetups(data);
-      } catch (err) {
-        toast.error(getError(err) || 'Erro ao carregar os seus meetups');
-      }
-      setLoading(false);
-      loadMeetups();
-    }
-  }, []);
-
   return (
     <Container>
       <header>

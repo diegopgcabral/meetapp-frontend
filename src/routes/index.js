@@ -21,7 +21,7 @@ export default function Routes() {
 
       <Route path="/meetup/new" exact component={NewMeetup} isPrivate />
       <Route path="/meetup/edit/:id" exact component={EditMeetup} isPrivate />
-      <Route path="/meetup/:id" exact component={Details} isPrivate />
+      <Route path="/meetup/details/:id" exact component={Details} isPrivate />
 
       <Route path="/" component={() => <h1>Erro 404</h1>} />
     </Switch>

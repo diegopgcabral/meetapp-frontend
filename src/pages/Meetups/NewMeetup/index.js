@@ -1,15 +1,15 @@
 import React from 'react';
-import * as Yup from 'yup';
-import { toast } from 'react-toastify';
 import { Form, Input, Textarea } from '@rocketseat/unform';
-import { MdAddCircleOutline } from 'react-icons/md';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
 
-import DatePicker from '~/components/DatePicker';
-import BannerInput from '~/pages/Meetups/component/BannerInput';
+import { MdAddCircleOutline } from 'react-icons/md';
 
 import api from '~/service/api';
 import history from '~/service/history';
-import { getError } from '~/util/errorHandler';
+
+import BannerInput from '~/pages/Meetups/component/BannerInput';
+import DatePicker from '~/components/DatePicker';
 
 import { Container, Button } from './styles';
 
@@ -17,29 +17,28 @@ const schema = Yup.object().shape({
   banner_id: Yup.number().required('O banner é obrigatório'),
   title: Yup.string().required('O título é obrigatório'),
   description: Yup.string()
-    .max(144, 'Descrição não pode ter mais de 144 caracteres')
+    .max(145, 'Descrições não podem ter mais de 145 caracteres.')
     .required('A descrição é obrigatória'),
   date: Yup.date()
     .required('A data é obrigatória')
-    .min(new Date(), 'Meetup só pode ser criado para data futura'),
+    .min(new Date(), 'Meetups só podem ser criados para datas futuras'),
   location: Yup.string().required('O local é obrigatório'),
 });
 
-export default function NewMeetup() {
+export default function FormAdd() {
   async function handleSubmit(e) {
     try {
-      const newMeetup = { ...e };
-      const response = await api.post('meetups', newMeetup);
+      const meetup = { ...e };
+      const response = await api.post('meetups/', meetup);
 
       const { id } = response.data;
 
-      toast.success('Meetup cadastrado com sucesso!');
-      history.push(`/meetup/details/${id}`);
+      toast.success('Meetup criado com sucesso!');
+      history.push(`/meetups/details/${id}`);
     } catch (err) {
-      toast.error(getError(err) || 'Erro ao salvar o meetup');
+      toast.error('Erro ao cadastrar o meetup');
     }
   }
-
   return (
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
@@ -47,28 +46,30 @@ export default function NewMeetup() {
 
         <Input
           name="title"
-          type="text"
           autoComplete="off"
-          placeholder="Título do Meetup"
+          placeholder="Título do meetup"
+          type="text"
         />
+
         <Textarea
           name="description"
-          type="text"
           autoComplete="off"
           placeholder="Descrição completa"
+          type="text"
         />
 
         <DatePicker name="date" />
 
         <Input
           name="location"
-          type="text"
           autoComplete="off"
           placeholder="Localização"
+          type="text"
         />
+
         <Button type="submit">
           <MdAddCircleOutline size={20} />
-          Salvar Meetup
+          Salvar meetup
         </Button>
       </Form>
     </Container>
