@@ -25,7 +25,7 @@ const schema = Yup.object().shape({
   location: Yup.string().required('Por favor, informe o local'),
 });
 
-export default function FormAdd() {
+export default function NewMeetup() {
   async function handleSubmit(e) {
     try {
       const meetup = { ...e };
