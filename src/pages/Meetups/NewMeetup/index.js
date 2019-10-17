@@ -14,15 +14,15 @@ import DatePicker from '~/components/DatePicker';
 import { Container, Button } from './styles';
 
 const schema = Yup.object().shape({
-  banner_id: Yup.number().required('O banner é obrigatório'),
-  title: Yup.string().required('O título é obrigatório'),
+  banner_id: Yup.number().required('Por favor, informe o banner do meetup'),
+  title: Yup.string().required('Por favor, informe o título'),
   description: Yup.string()
-    .max(145, 'Descrições não podem ter mais de 145 caracteres.')
-    .required('A descrição é obrigatória'),
+    .max(140, 'Descrições não podem ter mais de 140 caracteres.')
+    .required('Por favor, informe a descrição'),
   date: Yup.date()
-    .required('A data é obrigatória')
-    .min(new Date(), 'Meetups só podem ser criados para datas futuras'),
-  location: Yup.string().required('O local é obrigatório'),
+    .required('Por favor, informe a data')
+    .min(new Date(), 'Não é possível criar meetup com data passada'),
+  location: Yup.string().required('Por favor, informe o local'),
 });
 
 export default function FormAdd() {
